@@ -17,9 +17,48 @@ public class PlayerControl : MonoBehaviour {
 	public KeyCode jumpButton;
 	public Transform jumpVectorPoint;
 	public TrailRenderer fire;
+    public bool doubleJump;
 	public bool smallCube;
 
-	void Start ()
+    float speed;
+
+    public float Speed
+    {
+        get
+        {
+            return Mathf.Max(Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x), Mathf.Abs(GetComponent<Rigidbody2D>().velocity.y));
+        }
+    }
+
+
+    bool twin;
+
+    public bool Twin
+    {
+        get
+        {
+            return twin;
+        }
+
+        set
+        {
+            if (!twin)
+            {
+                //face.ToEvil();
+                GetComponent<SpriteRenderer>().color = Color.red;
+            }
+            else
+            {
+               // face.ToNormal();
+                GetComponent<SpriteRenderer>().color = Color.white;
+            }
+
+            twin = value;
+        }
+    }
+
+
+    void Start ()
     {
         name = "Player";
         sndController = GetComponent<PlayerSoundController>();
@@ -30,14 +69,45 @@ public class PlayerControl : MonoBehaviour {
 
     void Update () 
 	{
-		if (Input.GetKeyDown(jumpButton) && isGround && !forceControlOff) {
+        //Двойной прыжок
+        if (Input.GetKeyDown(jumpButton) && !isGround && !forceControlOff && doubleJump)
+        {
+            DoubleJump();
+        }
+        //Обычный прыжок
+        if (Input.GetKeyDown(jumpButton) && isGround && !forceControlOff) {
 			Jump ();
 		}
+
     }
 
-	void Jump ()
+    void DoubleJump()
+    {
+        face.Jump();
+        if (!smallCube)
+        {
+            sndController.jump.pitch = Random.Range(1.2f, 1.2f);
+            sndController.jump.Play();
+        }
+        else
+        {
+            sndController.jumpSmall.pitch = Random.Range(0.6f, 1.2f);
+            sndController.jumpSmall.Play();
+        }
+        rb.velocity = new Vector2(0, 0);
+        rb.AddForce(new Vector2(-jumpVectorPoint.localPosition.x * 4 * force, Mathf.Abs(jumpVectorPoint.localPosition.y) * 2 * force));
+        //rb.MovePosition(gameObject.transform.position - (gameObject.transform.forward * 5));
+        //Двойной прыжок дается только один раз
+        //doubleJump = false;
+    }
+
+
+    void Jump ()
 	{
-		face.Jump ();
+        int tweendirection = 1;
+        if (twin) tweendirection = -1;
+
+        face.Jump ();
 		if (!smallCube) {
 			sndController.jump.pitch = Random.Range (0.6f, 1.2f);
 			sndController.jump.Play ();
@@ -46,7 +116,7 @@ public class PlayerControl : MonoBehaviour {
 			sndController.jumpSmall.Play ();
 		}
 		//x100 y100 - default!
-		rb.AddForce (new Vector2 (Mathf.Abs(jumpVectorPoint.localPosition.x) * force, Mathf.Abs(jumpVectorPoint.localPosition.y) * force));
+		rb.AddForce (new Vector2 (Mathf.Abs(jumpVectorPoint.localPosition.x) * force * tweendirection, Mathf.Abs(jumpVectorPoint.localPosition.y) * force));
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {

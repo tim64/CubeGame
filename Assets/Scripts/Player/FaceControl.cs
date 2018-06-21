@@ -1,25 +1,56 @@
-﻿using UnityEngine;
+﻿ using UnityEngine;
 using System.Collections;
 
 public class FaceControl : MonoBehaviour {
 
-	[Header ("Normal faces")]
-	public Sprite normal;
-	public Sprite down;
-	public Sprite left;
-	public Sprite right;
+    public Sprite[] normal_sprites;
+    public Sprite[] evil_sprites;
 
-	[Header ("Bad faces")]
-	public Sprite scary;
-	public Sprite bad;
+	 Sprite normal;
+	 Sprite down;
+	 Sprite left;
+	 Sprite right;
 
-	[Header ("Action faces")]
-	public Sprite jump1;
-	public Sprite jump2;
-	public Sprite jump3;
 
-    [Header("Special")]
-    public Sprite pause;
+	 Sprite scary;
+	 Sprite bad;
+
+	 Sprite jump1;
+	 Sprite jump2;
+	 Sprite jump3;
+
+     Sprite pause;
+
+    private void Start()
+    {
+        ToNormal();
+    }
+
+    public void ToNormal()
+    {
+        normal = normal_sprites[0];
+        down = normal_sprites[1];
+        left = normal_sprites[2];
+        right = normal_sprites[3];
+        scary = normal_sprites[4];
+        bad = normal_sprites[5];
+        jump1 = normal_sprites[6];
+        jump2 = normal_sprites[7];
+        jump3 = normal_sprites[8];
+    }
+
+    public void ToEvil()
+    {
+        normal = evil_sprites[0];
+        down = evil_sprites[1];
+        left = evil_sprites[2];
+        right = evil_sprites[3];
+        scary = evil_sprites[4];
+        bad = evil_sprites[5];
+        jump1 = evil_sprites[6];
+        jump2 = evil_sprites[7];
+        jump3 = evil_sprites[8];
+    }
 
 
     public void Normal()

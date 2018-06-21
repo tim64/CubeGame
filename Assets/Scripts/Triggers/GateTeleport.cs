@@ -22,7 +22,7 @@ public class GateTeleport : MonoBehaviour {
 
 			LeanTween.scale (player, Vector3.zero, 0.5f).setOnComplete (delegate() {
 				Camera.main.transform.position = teleportPoint.position;
-				player.GetComponent<Rigidbody2D> ().position = teleportPoint.position;
+				player.GetComponent<Rigidbody2D> ().MovePosition(teleportPoint.position);
 
 				LeanTween.value (gameObject, UpdateVolume, teleportSound.volume, 0, 1.5f).setOnComplete (delegate() {
 					teleportSound.Stop ();
