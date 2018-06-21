@@ -1,0 +1,50 @@
+Timer
+Version 1.07
+Support: turnthegameon@gmail.com
+PlayMaker Addons: https://dl.dropboxusercontent.com/u/195471946/Asset%20Store%20Support%20Packages/Timer%20v1.051_PlayMaker%20Actions.unitypackage
+
+Read Me:
+
+This is a generic multi-purpose timer that can be added to any scene for instant functionality.
+
+--To add a timer to a scene select "GameObject/UI/Timer" from the Toolbar or right-click in the Hierachy and select "UI/Timer".
+
+--The timer uses the default uGUI components and can be adjusted to suit your needs.
+
+--Methods have been added to control the timer from your other scripts, you can now make a reference to the timer and call the following:
+
+GetTimerValue()     returns the unformatted float value used for timer.
+RestartTimer()      resets the timer.
+StopTimer()         pause or stop the timer.
+StartTimer()        starts the timer.
+
+Use the Inspector:
+
+--Timer State: disable or enable timer counting.
+
+--Timer Text: A reference to the text used for the timer string.
+
+--Timer Type: Select if you want the timer to Count Down, Count Up, or Count Up No Limit.
+
+--Finish Time: Used when timer is counting up, if not the finish time is 0.
+
+--Start Time: Used when timer is counting down, if not the finish time is 0.
+
+--Timer Format: Used when timer is counting up or down. Choose which parameters of the timer string are displayed: milliseconds, seconds, minutes
+
+--Display Options: Used when timer is set to count up infinite. Choose which parameters of the timer string are displayed: milliseconds, seconds, minutes, hours, days
+
+--Set Zero Timescale: sets the timescale to 0 when times up.
+
+--Times Up Event: Assign functions to be called on assigned objects when times up.
+
+--Destroy On Finish: Destroy(GameObject) will be called on all assigned game objects.
+
+--Load Scene On: Select if you want a scene to be loaded automatically on time up or at a specific time.
+
+--Analog Clocks - 3D and uGUI analog clock prefabs are included that will automatically read and display the time from the timer asset when counting up infinitely. Just add these to a scene with the timer asset.
+
+
+
+
+
