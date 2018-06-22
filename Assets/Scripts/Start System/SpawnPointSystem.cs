@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets._2D;
@@ -8,7 +9,8 @@ public class SpawnPointSystem : MonoBehaviour {
     public GameObject characterPrefab;
 	public PortalEffect portal;
     public float delaySpawn;
-    
+    public CinemachineVirtualCamera virtualCam;
+
 
     public enum AnimationType
     {
@@ -70,9 +72,10 @@ public class SpawnPointSystem : MonoBehaviour {
 			character = Instantiate (characterPrefab, position, Quaternion.identity);
 			//уменьшаем персонажа перед анимацией скейла
 			if (appearType == AnimationType.SCALE) character.transform.localScale = Vector2.zero;
-			Camera.main.GetComponent<Camera2DFollow> ().target = character.transform;
-            Camera.main.GetComponent<CameraAutoZoom>().Player = character;
-            Camera.main.GetComponent<CameraAutoZoom>().enabled = true;
+            virtualCam.Follow = character.transform;
+            //Camera.main.GetComponent<Camera2DFollow> ().target = character.transform;
+            // Camera.main.GetComponent<CameraAutoZoom>().Player = character;
+            //Camera.main.GetComponent<CameraAutoZoom>().enabled = true;
 
             AppearType = AppearType; //Setting force call
 

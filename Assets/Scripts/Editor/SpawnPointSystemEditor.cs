@@ -6,7 +6,8 @@ public class SpawnPointSystemEditor : Editor
 {
 
     public SerializedProperty
-		characterPrefab_Prop,
+        virtualCam_Prop,
+        characterPrefab_Prop,
 		portal_Prop,
 		delaySpawn_Prop,
         appearType_Prop,
@@ -16,7 +17,8 @@ public class SpawnPointSystemEditor : Editor
 
     void OnEnable()
     {
-		characterPrefab_Prop = serializedObject.FindProperty("characterPrefab");
+        virtualCam_Prop = serializedObject.FindProperty("virtualCam");
+        characterPrefab_Prop = serializedObject.FindProperty("characterPrefab");
 		portal_Prop = serializedObject.FindProperty("portal");
 		delaySpawn_Prop = serializedObject.FindProperty("delaySpawn");
         appearType_Prop = serializedObject.FindProperty("appearType");
@@ -29,7 +31,8 @@ public class SpawnPointSystemEditor : Editor
     {
         serializedObject.Update();
 
-		EditorGUILayout.PropertyField(characterPrefab_Prop);
+        EditorGUILayout.PropertyField(virtualCam_Prop);
+        EditorGUILayout.PropertyField(characterPrefab_Prop);
 		EditorGUILayout.PropertyField(portal_Prop);
 		EditorGUILayout.PropertyField (delaySpawn_Prop);
         EditorGUILayout.PropertyField(appearType_Prop);

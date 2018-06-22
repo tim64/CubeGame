@@ -87,30 +87,11 @@ public class PlayerControl : MonoBehaviour {
             doubleJumpMoment = true;
             Jump ();
         }
+
         //Обычный прыжок
         if (Input.GetKeyDown(jumpButton) && isGround && !forceControlOff) {
 			Jump ();
 		}
-
-    }
-
-    void DoubleJump()
-    {
-        face.Jump();
-        if (!smallCube)
-        {
-            sndController.jump.pitch = Random.Range(0.6f, 1.2f);
-            sndController.jump.Play();
-        }
-        else
-        {
-            sndController.jumpSmall.pitch = Random.Range(0.6f, 1.2f);
-            sndController.jumpSmall.Play();
-        }
-        rb.velocity = new Vector2(0, 0);
-
-
-        rb.AddForce(new Vector2(jumpVectorPoint.localPosition.x * 4 * force, Mathf.Abs(jumpVectorPoint.localPosition.y) * 4 * force));
 
     }
 
@@ -128,13 +109,21 @@ public class PlayerControl : MonoBehaviour {
 			sndController.jumpSmall.pitch = Random.Range (0.6f, 1.2f);
 			sndController.jumpSmall.Play ();
 		}
-		//x100 y100 - default!
+
+		//Двойные прыжки
         if (doubleJumpMoment)
         {
             boostX = 1.5f;
             boostY = 3;
         }
-        else
+        //Прыжки миникуба
+        if (smallCube)
+        {
+            boostX = 0.5f;
+            boostY = 1f;
+        }
+        //Обычные прыжки
+        if (!smallCube && !doubleJump)
         {
             boostX = 1;
             boostY = 1;           

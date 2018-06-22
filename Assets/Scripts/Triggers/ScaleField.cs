@@ -32,7 +32,7 @@ public class ScaleField : MonoBehaviour {
 			if (direct == ScaleDirection.Decrease) player.smallCube = true;
 			else player.smallCube = false;
 
-			soundFX.Play ();
+			//soundFX.Play ();
 
 			scaledObject = coll.gameObject;
 			objectSize = scaledObject.transform.localScale;
