@@ -7,6 +7,13 @@ public class PlayerControl : MonoBehaviour {
 	//Физические параметры
 	Bounds playerBounds;
 	public int force = 100;
+    int forceX;
+    int forceY;
+    float boostX = 1;
+    float boostY = 1;
+
+    float speedX;
+    float speedY;
 
 	Rigidbody2D rb;
 	PlayerSoundController sndController;
@@ -21,6 +28,7 @@ public class PlayerControl : MonoBehaviour {
 	public bool smallCube;
 
     float speed;
+    bool doubleJumpMoment;
 
     public float Speed
     {
@@ -65,14 +73,19 @@ public class PlayerControl : MonoBehaviour {
         face = GetComponent<FaceControl>();
         rb = GetComponent<Rigidbody2D>();
         playerBounds = GetComponent<Renderer>().bounds;
+
+        forceX = force;
+        forceY = force;
     }
 
     void Update () 
 	{
         //Двойной прыжок
-        if (Input.GetKeyDown(jumpButton) && !isGround && !forceControlOff && doubleJump)
+        if (Input.GetKeyDown(jumpButton) && !isGround && !forceControlOff && doubleJump && !doubleJumpMoment)
         {
-            DoubleJump();
+            //Не дает делать двойные прыжки в воздухе
+            doubleJumpMoment = true;
+            Jump ();
         }
         //Обычный прыжок
         if (Input.GetKeyDown(jumpButton) && isGround && !forceControlOff) {
@@ -86,7 +99,7 @@ public class PlayerControl : MonoBehaviour {
         face.Jump();
         if (!smallCube)
         {
-            sndController.jump.pitch = Random.Range(1.2f, 1.2f);
+            sndController.jump.pitch = Random.Range(0.6f, 1.2f);
             sndController.jump.Play();
         }
         else
@@ -95,10 +108,10 @@ public class PlayerControl : MonoBehaviour {
             sndController.jumpSmall.Play();
         }
         rb.velocity = new Vector2(0, 0);
-        rb.AddForce(new Vector2(-jumpVectorPoint.localPosition.x * 4 * force, Mathf.Abs(jumpVectorPoint.localPosition.y) * 2 * force));
-        //rb.MovePosition(gameObject.transform.position - (gameObject.transform.forward * 5));
-        //Двойной прыжок дается только один раз
-        //doubleJump = false;
+
+
+        rb.AddForce(new Vector2(jumpVectorPoint.localPosition.x * 4 * force, Mathf.Abs(jumpVectorPoint.localPosition.y) * 4 * force));
+
     }
 
 
@@ -116,12 +129,27 @@ public class PlayerControl : MonoBehaviour {
 			sndController.jumpSmall.Play ();
 		}
 		//x100 y100 - default!
-		rb.AddForce (new Vector2 (Mathf.Abs(jumpVectorPoint.localPosition.x) * force * tweendirection, Mathf.Abs(jumpVectorPoint.localPosition.y) * force));
+        if (doubleJumpMoment)
+        {
+            boostX = 1.5f;
+            boostY = 3;
+        }
+        else
+        {
+            boostX = 1;
+            boostY = 1;           
+        }
+        
+        speedX = Mathf.Abs(jumpVectorPoint.localPosition.x) * force * tweendirection;
+        speedY = Mathf.Abs(jumpVectorPoint.localPosition.y) * force;
+
+		rb.AddForce (new Vector2(speedX * boostX, speedY * boostY));
+
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
 		if (coll.gameObject.tag == "Blocks") {
-			
+			doubleJumpMoment = false;
 			isGround = true;
 			if (transform.localRotation.eulerAngles.z > 160 && transform.localRotation.eulerAngles.z < 200) {
 				sndController.put2.Play ();
