@@ -7,19 +7,24 @@ public class ShadowGenerator : MonoBehaviour {
     SpriteRenderer current;
     SpriteRenderer shadow;
 
+    public float shadowScalefactor = 0.2f;
+
     void Start () {
         current = GetComponent<SpriteRenderer>();
         GameObject shadowObj = new GameObject();
 
-        shadowObj.name = "Shadow";
-        shadowObj.transform.parent = transform;
-        shadowObj.transform.localPosition = Vector3.zero;
+        Vector3 currentScale = current.transform.localScale;
+
+            shadowObj.name = "Shadow";
+            shadowObj.transform.parent = transform;
+        shadowObj.transform.localPosition = new Vector3(0, 0, 0);
+        shadowObj.transform.localScale = new Vector3(currentScale.x + shadowScalefactor, currentScale.y + shadowScalefactor, currentScale.z);
 
         SpriteRenderer shadow = shadowObj.AddComponent<SpriteRenderer>();
 
         shadow.sprite = current.sprite;
-        shadow.sortingLayerName = current.sortingLayerName;
-        shadow.sortingOrder = current.sortingOrder + 1;
+        shadow.sortingLayerName = "Default";
+        shadow.sortingOrder = -1;
 
         Color tmp = shadow.GetComponent<SpriteRenderer>().color;
         tmp = Color.black;
