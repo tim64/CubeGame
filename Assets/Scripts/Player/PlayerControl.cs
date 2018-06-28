@@ -9,8 +9,9 @@ public class PlayerControl : MonoBehaviour {
 	public int force = 100;
     int forceX;
     int forceY;
-    float boostX = 1;
-    float boostY = 1;
+    int direction = 1;
+    float boostX = 1.1f;
+    float boostY = 1.1f;
 
     float speedX;
     float speedY;
@@ -80,26 +81,46 @@ public class PlayerControl : MonoBehaviour {
 
     void Update () 
 	{
+        //ПРЫГАЕМ ВПРАВО
         //Двойной прыжок
-        if (Input.GetKeyDown(jumpButton) && !isGround && !forceControlOff && doubleJump && !doubleJumpMoment)
+        if (Input.GetKeyDown(KeyCode.RightArrow) && !isGround && !forceControlOff && doubleJump && !doubleJumpMoment)
         {
             //Не дает делать двойные прыжки в воздухе
+            direction = 1;
             doubleJumpMoment = true;
             Jump ();
         }
 
         //Обычный прыжок
-        if (Input.GetKeyDown(jumpButton) && isGround && !forceControlOff) {
-			Jump ();
+        if (Input.GetKeyDown(KeyCode.RightArrow) && isGround && !forceControlOff) {
+            direction = 1;
+            Jump ();
 		}
+
+        //ПРЫГАЕМ ВЛЕВО
+        //Двойной прыжок
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && !isGround && !forceControlOff && doubleJump && !doubleJumpMoment)
+        {
+            //Не дает делать двойные прыжки в воздухе
+            direction = -1;
+            doubleJumpMoment = true;
+            Jump();
+        }
+
+        //Обычный прыжок
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && isGround && !forceControlOff)
+        {
+            direction = -1;
+            Jump();
+        }
 
     }
 
 
     void Jump ()
 	{
-        int tweendirection = 1;
-        if (twin) tweendirection = -1;
+        //int tweendirection = 1;
+        //if (twin) tweendirection = -1;
 
         face.Jump ();
 		if (!smallCube) {
@@ -125,11 +146,11 @@ public class PlayerControl : MonoBehaviour {
         //Обычные прыжки
         if (!smallCube && !doubleJump)
         {
-            boostX = 1;
-            boostY = 1;           
+            boostX = 1.1f;
+            boostY = 1.1f;           
         }
         
-        speedX = Mathf.Abs(jumpVectorPoint.localPosition.x) * force * tweendirection;
+        speedX = Mathf.Abs(jumpVectorPoint.localPosition.x) * force * direction;
         speedY = Mathf.Abs(jumpVectorPoint.localPosition.y) * force;
 
 		rb.AddForce (new Vector2(speedX * boostX, speedY * boostY));
