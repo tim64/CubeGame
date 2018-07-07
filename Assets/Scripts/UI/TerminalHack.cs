@@ -11,10 +11,11 @@ public class TerminalHack : MonoBehaviour {
     bool endupdate;
     int charIndex = 0;
     string codetext = "\n\n#include <stdio.h>\n\nmain()\n{\n\tprintf(hello, world!);\n}";
+    string startText;
 
     void Start () {
         textfield = GetComponent<Text>();
-        //textfield.text = codetext;
+        startText = textfield.text;
 
     }
 
@@ -41,8 +42,17 @@ public class TerminalHack : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Return) && endupdate)
         {
-            terminal.DeactivateField();
-            transform.parent.gameObject.SetActive(false);
+            Deactivate();
         }
+    }
+
+    private void Deactivate()
+    {
+        terminal.DeactivateField();
+        textfield.text = startText;
+        endupdate = false;
+        charIndex = 0;
+        detector.color = Color.red;
+        transform.parent.gameObject.SetActive(false);
     }
 }

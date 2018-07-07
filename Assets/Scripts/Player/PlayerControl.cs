@@ -28,6 +28,8 @@ public class PlayerControl : MonoBehaviour {
     public bool doubleJump;
 	public bool smallCube;
 
+    FreeParallax parallax;
+
     float speed;
     bool doubleJumpMoment;
 
@@ -64,6 +66,11 @@ public class PlayerControl : MonoBehaviour {
 
             twin = value;
         }
+    }
+
+    private void Awake()
+    {
+        parallax = GameObject.Find("Parallax").GetComponent<FreeParallax>();
     }
 
 
@@ -114,6 +121,8 @@ public class PlayerControl : MonoBehaviour {
             Jump();
         }
 
+        parallax.Speed = direction * rb.velocity.magnitude/10;
+
     }
 
 
@@ -157,8 +166,8 @@ public class PlayerControl : MonoBehaviour {
 
 	}
 
-	void OnCollisionEnter2D(Collision2D coll) {
-		if (coll.gameObject.tag == "Blocks") {
+	void OnCollisionEnter2D(Collision2D collision) {
+		if (collision.gameObject.tag == "Blocks") {
 			doubleJumpMoment = false;
 			isGround = true;
 			if (transform.localRotation.eulerAngles.z > 160 && transform.localRotation.eulerAngles.z < 200) {
@@ -170,13 +179,19 @@ public class PlayerControl : MonoBehaviour {
 			}
 		}
 
-		if (coll.gameObject.tag == "Damager") {
+		if (collision.gameObject.tag == "Damager") {
 			GetComponent<PlayerRespawner> ().Respawn ();
 		}
 	}
 
-	void OnCollisionExit2D(Collision2D coll) {
-		if (coll.gameObject.tag == "Blocks")
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Blocks")
+            isGround = true;
+    }
+
+    void OnCollisionExit2D(Collision2D collision) {
+		if (collision.gameObject.tag == "Blocks")
 			isGround = false;
 	}
 
