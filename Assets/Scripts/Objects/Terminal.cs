@@ -7,8 +7,7 @@ public class Terminal : MonoBehaviour {
     public GameObject terminalWindow;
     public TerminalHack hackText;
     public GameObject infoText;
-    public Collider2D forceFieldCollider;
-    public ParticleSystem forceFieldParticle;
+    public ForceFieldControl fieldControl;
 
     bool playerReady;
 
@@ -45,7 +44,6 @@ public class Terminal : MonoBehaviour {
     public void DeactivateField()
     {
         infoText.SetActive(false);
-        forceFieldCollider.enabled = false;
-        forceFieldParticle.Stop();
+        fieldControl.DeactivateField();
     }
 }
