@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 		
 	}
 

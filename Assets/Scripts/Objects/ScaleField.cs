@@ -3,21 +3,18 @@ using System.Collections;
 
 public class ScaleField : MonoBehaviour {
 
-	Vector2 objectSize;
-	public AudioSource soundFX;
-
-	GameObject scaledObject = null;
-	[Header ("Scale persent")]
 	[Range (0, 200)]
 	public int delta;
-
+	public AudioSource soundFX;
 	public enum ScaleDirection 
 	{ 
 		Increase, 
 		Decrease 
 	}
-	[Header ("Scale direction")]
 	public ScaleDirection direct = ScaleDirection.Decrease;
+
+	private Vector2 objectSize;
+	private  GameObject scaledObject = null;
 
 	void Start () 
 	{

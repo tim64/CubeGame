@@ -1,40 +1,61 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class CutScene1Control : MonoBehaviour {
 
 	public PlayerControl player;
-	public GameObject timeline;
+	public PlayableDirector director;
 	public GameObject npc;
-	public ForceFieldControl fieldControl;
+	public GameObject activeObject;
+	public string typeOfObject;
+	public string methodOfObject;
 
-	bool activeCutScene = false;
+	private System.Type myType;
+	private MethodInfo method;
+	private Action myAction = ()=>{};
+	private bool activeCutScene = false;
 
-	/// <summary>
-	/// Start is called on the frame when a script is enabled just before
-	/// any of the Update methods is called the first time.
-	/// </summary>
+
 	void Start()
 	{
+		director.gameObject.SetActive(false);
+		myType = Type.GetType(typeOfObject);
+		print(myType);
+		method = myType.GetMethod(methodOfObject, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+
 		LeanTween.delayedCall(2f, () => {player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();});
 		
 	}
 	
-	private void OnTriggerEnter2D(Collider2D other) 
+	private void OnTriggerEnter2D(Collider2D coll) 
 	{
-		if (!activeCutScene)
+		if (!activeCutScene && coll.tag == "Player")
 		{
-			player.forceControlOff = true;
-			timeline.SetActive(true);
-			activeCutScene = true;	
+			director.gameObject.SetActive(true);
+			director.stopped += OnPlayableDirectorStopped;
+			activeCutScene = true;
+			player.forceDisableControls = true;	
 		}
 
 	}
 
-	public void EndScene()
-	{
-		fieldControl.DeactivateField();
-		player.forceControlOff = false;
-	}
+	void OnPlayableDirectorStopped(PlayableDirector aDirector)
+    {
+        if (director == aDirector)
+		{
+			print(method);
+			if (method != null)
+			{
+				myAction = (Action)Delegate.CreateDelegate(typeof(Action), activeObject, method);
+			}
+			player.forceDisableControls = false;
+			director.stopped -= OnPlayableDirectorStopped;
+		}
+            
+    }
+
 }

@@ -5,20 +5,19 @@ public class FlyingBlock : MonoBehaviour {
 
 	[Range (1, 10)]
 	public int speed = 10;
-
 	public Transform movePoint;
-
-	Vector2 direction;
-	Vector2 limits;
-	Rigidbody2D rb;
-
 	public enum Direction 
 	{ 
 		LeftRight, 
 		UpDown 
 	}
-
 	public Direction direct = Direction.UpDown;
+
+	private Vector2 direction;
+	private Vector2 limits;
+	private Rigidbody2D rb;
+
+
 
 	void Start () 
 	{

@@ -5,13 +5,15 @@ using UnityEngine.UI;
 
 public class TerminalHack : MonoBehaviour {
 
-    Text textfield;
+    
     public Terminal terminal;
     public Image detector;
-    bool endupdate;
-    int charIndex = 0;
-    string codetext = "\n\n#include <stdio.h>\n\nmain()\n{\n\tprintf(hello, world!);\n}";
-    string startText;
+    
+    private Text textfield;
+    private bool endupdate;
+    private int charIndex = 0;
+    private string codetext = "\n\n#include <stdio.h>\n\nmain()\n{\n\tprintf(hello, world!);\n}";
+    private string startText;
 
     void Start () {
         textfield = GetComponent<Text>();

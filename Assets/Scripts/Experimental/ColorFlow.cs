@@ -4,12 +4,10 @@ using System.Collections;
 public class ColorFlow : MonoBehaviour {
 
 	public Color[] colors;
-
 	public int currentIndex = 0;
-	private int nextIndex;
-
 	public float changeColourTime = 2.0f;
 
+	private int nextIndex = 0;
 	private float lastChange = 0.0f;
 	private float timer = 0.0f;
 

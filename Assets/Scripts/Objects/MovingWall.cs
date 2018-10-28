@@ -8,15 +8,6 @@ public class MovingWall : MonoBehaviour {
 	public float movingTime = 0;
 	public bool destroyAfrerMoving = false;
 
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
 	public void Unlock()
 	{
 		//GetComponent<RandomShake> ().enabled = true;

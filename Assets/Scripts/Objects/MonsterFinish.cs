@@ -66,7 +66,7 @@ public class MonsterFinish : MonoBehaviour {
 
     private void ResetPlayer(GameObject player)
     {
-        player.GetComponent<PlayerControl>().forceControlOff = true;
+        player.GetComponent<PlayerControl>().forceDisableControls = true;
         player.GetComponent<FaceControl>().Normal();
         player.transform.rotation = Quaternion.identity;
         player.transform.parent = transform;

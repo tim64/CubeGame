@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PositionLocker : MonoBehaviour {
 
-	Vector2 startPosition;
+	private Vector2 startPosition;
 
 	void Awake () 
 	{

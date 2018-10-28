@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ShadowGenerator : MonoBehaviour {
 
-    SpriteRenderer current;
-    SpriteRenderer shadow;
+    private SpriteRenderer current;
+    private SpriteRenderer shadow;
 
     public float shadowScalefactor = 0.2f;
 

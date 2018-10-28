@@ -11,10 +11,13 @@ public class GateTeleport : MonoBehaviour {
 	{
 
 		if (teleportPoint == null)
+		{
 			Destroy (this);
+		}
 	}
 
-	void OnTriggerEnter2D(Collider2D coll) {
+	void OnTriggerEnter2D(Collider2D coll)
+	 {
 		if (coll.gameObject.tag == "Player")
 		{
 			GameObject player = coll.gameObject;
@@ -28,7 +31,8 @@ public class GateTeleport : MonoBehaviour {
 				Camera.main.transform.position = teleportPoint.position;
 				player.GetComponent<Rigidbody2D> ().MovePosition(teleportPoint.position);
 
-				LeanTween.value (gameObject, UpdateVolume, teleportSound.volume, 0, 1.5f).setOnComplete (delegate() {
+				LeanTween.value (gameObject, UpdateVolume, teleportSound.volume, 0, 1.5f).setOnComplete (delegate() 
+				{
 					teleportSound.Stop ();
 				});
 

@@ -5,7 +5,8 @@ using UnityEngine;
 public class DoubleJumpActivator : MonoBehaviour {
 
 
-    PlayerControl player;
+    private PlayerControl player;
+    
 	void OnTriggerEnter2D(Collider2D coll) 
 	{
         

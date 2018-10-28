@@ -9,10 +9,9 @@ public class FinishMovingBlock : MonoBehaviour {
 	public Tourch fire2;
     public GameObject blink;
     public BoxCollider2D trigger;
-
 	public Transform moveToPoint;
 
-	bool inMoving = false;
+	private bool inMoving = false;
 
 	void OnTriggerEnter2D(Collider2D coll) {
 		if (coll.gameObject.tag == "Player" && !inMoving)
@@ -20,7 +19,7 @@ public class FinishMovingBlock : MonoBehaviour {
 			inMoving = true;
 			GameObject player = coll.gameObject;
 
-			player.GetComponent<PlayerControl> ().forceControlOff = true;
+			player.GetComponent<PlayerControl> ().forceDisableControls = true;
 			player.GetComponent<FaceControl> ().Normal ();
             player.transform.rotation = Quaternion.identity;
             player.transform.parent = transform;

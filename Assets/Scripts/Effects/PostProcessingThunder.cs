@@ -6,9 +6,9 @@ using UnityEngine.PostProcessing;
 public class PostProcessingThunder : MonoBehaviour
 {
 
-    //remember to drag and drop your scriptable object into this field in the inspector...
+
     public PostProcessingProfile ppProfile;
-    float defaultBrightLevel = 3;
+    private float defaultBrightLevel = 3;
 
     void Awake()
     {

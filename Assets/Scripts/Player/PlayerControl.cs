@@ -18,7 +18,7 @@ public class PlayerControl : MonoBehaviour {
 
 	Rigidbody2D rb;
 	PlayerSoundController sndController;
-	public bool forceControlOff = false;
+	public bool forceDisableControls = false;
 	public bool isGround = false;
 
 	FaceControl face;
@@ -90,7 +90,7 @@ public class PlayerControl : MonoBehaviour {
 	{
         //ПРЫГАЕМ ВПРАВО
         //Двойной прыжок
-        if (Input.GetKeyDown(KeyCode.RightArrow) && !isGround && !forceControlOff && doubleJump && !doubleJumpMoment)
+        if (Input.GetKeyDown(KeyCode.RightArrow) && !isGround && !forceDisableControls && doubleJump && !doubleJumpMoment)
         {
             //Не дает делать двойные прыжки в воздухе
             direction = 1;
@@ -99,14 +99,14 @@ public class PlayerControl : MonoBehaviour {
         }
 
         //Обычный прыжок
-        if (Input.GetKeyDown(KeyCode.RightArrow) && isGround && !forceControlOff) {
+        if (Input.GetKeyDown(KeyCode.RightArrow) && isGround && !forceDisableControls) {
             direction = 1;
             Jump ();
 		}
 
         //ПРЫГАЕМ ВЛЕВО
         //Двойной прыжок
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && !isGround && !forceControlOff && doubleJump && !doubleJumpMoment)
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && !isGround && !forceDisableControls && doubleJump && !doubleJumpMoment)
         {
             //Не дает делать двойные прыжки в воздухе
             direction = -1;
@@ -115,7 +115,7 @@ public class PlayerControl : MonoBehaviour {
         }
 
         //Обычный прыжок
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && isGround && !forceControlOff)
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && isGround && !forceDisableControls)
         {
             direction = -1;
             Jump();
@@ -123,6 +123,11 @@ public class PlayerControl : MonoBehaviour {
 
         parallax.Speed = direction * rb.velocity.magnitude/10;
 
+    }
+
+    public void ChangeRotateToDefault()
+    {
+        transform.rotation = Quaternion.identity;
     }
 
 

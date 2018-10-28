@@ -7,10 +7,14 @@ using UnityEngine.UI;
 
 public class TextTyper : MonoBehaviour 
 {	
-	[SerializeField] private float typeSpeed;
-	[SerializeField] private float startDelay;
-	[SerializeField] private float volumeVariation;
-	[SerializeField] private bool startOnAwake;
+	[SerializeField] 
+	private float typeSpeed;
+	[SerializeField] 
+	private float startDelay;
+	[SerializeField] 
+	private float volumeVariation;
+	[SerializeField]
+	private bool startOnAwake;
 
 	private int counter;
 	private string textToType;

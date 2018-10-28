@@ -25,7 +25,7 @@ public class TransportBox : MonoBehaviour {
 			player = coll.gameObject.GetComponent<PlayerControl> ();
 			player.GetComponent<BoxCollider2D> ().enabled = false;
 			player.GetComponent<Rigidbody2D> ().Sleep ();
-			player.forceControlOff = true;
+			player.forceDisableControls = true;
 			player.transform.rotation = Quaternion.identity;
 
 			gravitySound.Play ();
@@ -48,7 +48,7 @@ public class TransportBox : MonoBehaviour {
 					LeanTween.scaleX(ray, 0f, 0.2f);
 					SoundExtension.PlayReverseSound(scale);
 					player.GetComponent<Rigidbody2D> ().WakeUp();
-					player.forceControlOff = false;	
+					player.forceDisableControls = false;	
 				});
 
 			});

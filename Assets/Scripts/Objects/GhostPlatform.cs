@@ -8,9 +8,12 @@ public class GhostPlatform : MonoBehaviour {
 	public AudioSource soundFX;
 
 
-	void OnTriggerEnter2D(Collider2D coll) {
-		if (coll.gameObject.tag == "Player") {
-			LeanTween.delayedCall (1, delegate() {
+	void OnTriggerEnter2D(Collider2D coll) 
+	{
+		if (coll.gameObject.tag == "Player")
+		 {
+			LeanTween.delayedCall (1, delegate() 
+			{
 				soundFX.Play ();
 				particles.Stop();
 				LeanTween.alpha (gameObject, 1, 0.5f);

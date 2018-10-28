@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class UITextTypeWriter : MonoBehaviour {
 
-    Text txt;
+
     public string story;
+    private Text txt;
 
     void Awake()
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Respawner : MonoBehaviour {
 
-	bool resp = false;
+	private bool resp = false;
 
 	void OnTriggerEnter2D(Collider2D coll) 
 	{

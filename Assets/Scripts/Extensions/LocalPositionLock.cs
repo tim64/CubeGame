@@ -5,8 +5,10 @@ public class LocalPositionLock : MonoBehaviour {
 
 	public bool EditVectorPoint = false;
 
-	Vector3 startPos, mainPos, newPos;
-	Transform parent;
+	private Vector3 startPos;
+	private Vector3 mainPos;
+	private Vector3 newPos;
+	private Transform parent;
 
 	void Awake()
 	{

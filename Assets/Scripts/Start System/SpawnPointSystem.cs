@@ -23,8 +23,8 @@ public class SpawnPointSystem : MonoBehaviour {
     public Color startColor = Color.white;
     public float startAngle = 45;
 
-    int currentTwinId;
-    LTDescr descr;
+    private int currentTwinId;
+    private LTDescr descr;
     private GameObject character;
 
     

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class BestTimeLabel : MonoBehaviour {
 
-    float currentTime = 0;
+    private float currentTime = 0;
 
     public float CurrentTime
     {
