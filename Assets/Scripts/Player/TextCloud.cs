@@ -1,18 +1,21 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using UnityEngine; 
+using System.Collections; 
 
-public class TextCloud : MonoBehaviour {
+public class TextCloud:MonoBehaviour 
+    {
 
-	public TextMesh textField;
+	public TextMesh textField; 
 
-	void Start () {
-		textField.GetComponent<Renderer> ().sortingLayerName = "UI";
-		textField.text = "✰❒";
+	void Start ()
+        {
+		textField.GetComponent < Renderer > ().sortingLayerName = "UI"; 
+		textField.text = "✰❒"; 
 	
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+        {
 	
 	}
 }

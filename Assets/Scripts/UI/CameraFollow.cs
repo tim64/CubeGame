@@ -1,24 +1,25 @@
 ﻿using UnityEngine; 
 using System.Collections; 
-using System.Collections.Generic;
+using System.Collections.Generic; 
 
-public class CameraFollow : MonoBehaviour { 
+public class CameraFollow:MonoBehaviour 
+            {
 
-	public static CameraFollow cFollow;
+	public static CameraFollow cFollow; 
 
-	public float dampTime = 0.15f;
-	private Vector3 velocity = Vector3.zero;
-	public Transform target;
-	public float MidX;
-	public float MidY;
-	public float MidZ;
-	public Transform target1;
-	public Transform target2;
-	public Vector3 Midpoint;
-	public Vector3 distance;
-	public float camDistance;
-	public float CamOffset;
-	public float bounds;
+	public float dampTime = 0.15f; 
+	private Vector3 velocity = Vector3.zero; 
+	public Transform target; 
+	public float MidX; 
+	public float MidY; 
+	public float MidZ; 
+	public Transform target1; 
+	public Transform target2; 
+	public Vector3 Midpoint; 
+	public Vector3 distance; 
+	public float camDistance; 
+	public float CamOffset; 
+	public float bounds; 
 
 //	void Awake () 
 //	{

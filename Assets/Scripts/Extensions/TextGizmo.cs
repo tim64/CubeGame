@@ -1,6 +1,6 @@
 ﻿#if UNITY_EDITOR
-using UnityEngine;
-using System.Collections.Generic;
+using UnityEngine; 
+using System.Collections.Generic; 
 
 public class TextGizmo
 {
@@ -11,19 +11,25 @@ public class TextGizmo
 		{
 			if (instance == null)
 			{
-				instance = new TextGizmo();
+				instance = new TextGizmo(); 
 			}
 		}
 
-		internal static readonly TextGizmo instance;
+		internal static readonly TextGizmo instance; 
 	}
 
-	public static TextGizmo Instance { get { return Singleton.instance; } }
+	public static TextGizmo Instance 
+    {
+		get 
+        {
+			return Singleton.instance; 
+		}
+	}
 
 	#endregion
 
-	private const int CHAR_TEXTURE_HEIGHT = 11;
-	private const int CHAR_TEXTURE_WIDTH = 8;
+	private const int CHAR_TEXTURE_HEIGHT = 11; 
+	private const int CHAR_TEXTURE_WIDTH = 8; 
 	private const string characters = " !#%'()+,-.0123456789;=abcdefghijklmnopqrstuvwxyz_{}~\\?\":/*";
 
 	private Dictionary<char,string> texturePathLookup;

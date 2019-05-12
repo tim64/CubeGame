@@ -1,133 +1,135 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.EventSystems;
+﻿using UnityEngine; 
+using System.Collections; 
+using UnityEngine.EventSystems; 
 
-public class PlayerControl : MonoBehaviour {
+public class PlayerControl:MonoBehaviour 
+    {
 
 	//Физические параметры
-	Bounds playerBounds;
-	public int force = 100;
-    int forceX;
-    int forceY;
-    int direction = 1;
-    float boostX = 1.1f;
-    float boostY = 1.1f;
+	Bounds playerBounds; 
+	public int force = 100; 
+    int forceX; 
+    int forceY; 
+    int direction = 1; 
+    float boostX = 1.1f; 
+    float boostY = 1.1f; 
 
-    float speedX;
-    float speedY;
+    float speedX; 
+    float speedY; 
 
-	Rigidbody2D rb;
-	PlayerSoundController sndController;
-	public bool forceDisableControls = false;
-	public bool isGround = false;
+	Rigidbody2D rb; 
+	PlayerSoundController sndController; 
+	public bool forceDisableControls = false; 
+	public bool isGround = false; 
 
-	FaceControl face;
-	public KeyCode jumpButton;
-	public Transform jumpVectorPoint;
-	public TrailRenderer fire;
-    public bool doubleJump;
-	public bool smallCube;
+	FaceControl face; 
+	public KeyCode jumpButton; 
+	public Transform jumpVectorPoint; 
+	public TrailRenderer fire; 
+    public bool doubleJump; 
+	public bool smallCube; 
 
-    FreeParallax parallax;
+    FreeParallax parallax; 
 
-    float speed;
-    bool doubleJumpMoment;
+    float speed; 
+    bool doubleJumpMoment; 
 
     public float Speed
     {
         get
         {
-            return Mathf.Max(Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x), Mathf.Abs(GetComponent<Rigidbody2D>().velocity.y));
+            return Mathf.Max(Mathf.Abs(GetComponent < Rigidbody2D > ().velocity.x), Mathf.Abs(GetComponent < Rigidbody2D > ().velocity.y)); 
         }
     }
 
 
-    bool twin;
+    bool twin; 
 
     public bool Twin
     {
         get
         {
-            return twin;
+            return twin; 
         }
 
         set
         {
-            if (!twin)
+            if ( ! twin)
             {
                 //face.ToEvil();
-                GetComponent<SpriteRenderer>().color = Color.red;
+                GetComponent < SpriteRenderer > ().color = Color.red; 
             }
             else
             {
                // face.ToNormal();
-                GetComponent<SpriteRenderer>().color = Color.white;
+                GetComponent < SpriteRenderer > ().color = Color.white; 
             }
 
-            twin = value;
+            twin = value; 
         }
     }
 
     private void Awake()
     {
-        parallax = GameObject.Find("Parallax").GetComponent<FreeParallax>();
+        parallax = GameObject.Find("Parallax").GetComponent < FreeParallax > (); 
     }
 
 
     void Start ()
     {
-        name = "Player";
-        sndController = GetComponent<PlayerSoundController>();
-        face = GetComponent<FaceControl>();
-        rb = GetComponent<Rigidbody2D>();
-        playerBounds = GetComponent<Renderer>().bounds;
+        name = "Player"; 
+        sndController = GetComponent < PlayerSoundController > (); 
+        face = GetComponent < FaceControl > (); 
+        rb = GetComponent < Rigidbody2D > (); 
+        playerBounds = GetComponent < Renderer > ().bounds; 
 
-        forceX = force;
-        forceY = force;
+        forceX = force; 
+        forceY = force; 
     }
 
-    void Update () 
+    void Update ()
 	{
         //ПРЫГАЕМ ВПРАВО
         //Двойной прыжок
-        if (Input.GetKeyDown(KeyCode.RightArrow) && !isGround && !forceDisableControls && doubleJump && !doubleJumpMoment)
+        if (Input.GetKeyDown(KeyCode.RightArrow) &&  ! isGround &&  ! forceDisableControls && doubleJump &&  ! doubleJumpMoment)
         {
             //Не дает делать двойные прыжки в воздухе
-            direction = 1;
-            doubleJumpMoment = true;
-            Jump ();
+            direction = 1; 
+            doubleJumpMoment = true; 
+            Jump (); 
         }
 
         //Обычный прыжок
-        if (Input.GetKeyDown(KeyCode.RightArrow) && isGround && !forceDisableControls) {
-            direction = 1;
-            Jump ();
+        if (Input.GetKeyDown(KeyCode.RightArrow) && isGround &&  ! forceDisableControls)
+            {
+            direction = 1; 
+            Jump (); 
 		}
 
         //ПРЫГАЕМ ВЛЕВО
         //Двойной прыжок
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && !isGround && !forceDisableControls && doubleJump && !doubleJumpMoment)
+        if (Input.GetKeyDown(KeyCode.LeftArrow) &&  ! isGround &&  ! forceDisableControls && doubleJump &&  ! doubleJumpMoment)
         {
             //Не дает делать двойные прыжки в воздухе
-            direction = -1;
-            doubleJumpMoment = true;
-            Jump();
+            direction = -1; 
+            doubleJumpMoment = true; 
+            Jump(); 
         }
 
         //Обычный прыжок
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && isGround && !forceDisableControls)
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && isGround &&  ! forceDisableControls)
         {
-            direction = -1;
-            Jump();
+            direction = -1; 
+            Jump(); 
         }
 
-        parallax.Speed = direction * rb.velocity.magnitude/10;
+        parallax.Speed = direction * rb.velocity.magnitude/10; 
 
     }
 
     public void ChangeRotateToDefault()
     {
-        transform.rotation = Quaternion.identity;
+        transform.rotation = Quaternion.identity; 
     }
 
 
@@ -136,68 +138,76 @@ public class PlayerControl : MonoBehaviour {
         //int tweendirection = 1;
         //if (twin) tweendirection = -1;
 
-        face.Jump ();
-		if (!smallCube) {
-			sndController.jump.pitch = Random.Range (0.6f, 1.2f);
-			sndController.jump.Play ();
-		} else {
-			sndController.jumpSmall.pitch = Random.Range (0.6f, 1.2f);
-			sndController.jumpSmall.Play ();
+        face.Jump (); 
+		if ( ! smallCube)
+            {
+			sndController.jump.pitch = Random.Range (0.6f, 1.2f); 
+			sndController.jump.Play (); 
+		}else 
+            {
+			sndController.jumpSmall.pitch = Random.Range (0.6f, 1.2f); 
+			sndController.jumpSmall.Play (); 
 		}
 
 		//Двойные прыжки
         if (doubleJumpMoment)
         {
-            boostX = 1.5f;
-            boostY = 3;
+            boostX = 1.5f; 
+            boostY = 3; 
         }
         //Прыжки миникуба
         if (smallCube)
         {
-            boostX = 0.5f;
-            boostY = 1f;
+            boostX = 0.5f; 
+            boostY = 1f; 
         }
         //Обычные прыжки
-        if (!smallCube && !doubleJump)
+        if ( ! smallCube &&  ! doubleJump)
         {
-            boostX = 1.1f;
-            boostY = 1.1f;           
+            boostX = 1.1f; 
+            boostY = 1.1f; 
         }
         
-        speedX = Mathf.Abs(jumpVectorPoint.localPosition.x) * force * direction;
-        speedY = Mathf.Abs(jumpVectorPoint.localPosition.y) * force;
+        speedX = Mathf.Abs(jumpVectorPoint.localPosition.x) * force * direction; 
+        speedY = Mathf.Abs(jumpVectorPoint.localPosition.y) * force; 
 
-		rb.AddForce (new Vector2(speedX * boostX, speedY * boostY));
+		rb.AddForce (new Vector2(speedX * boostX, speedY * boostY)); 
 
 	}
 
-	void OnCollisionEnter2D(Collision2D collision) {
-		if (collision.gameObject.tag == "Blocks") {
-			doubleJumpMoment = false;
-			isGround = true;
-			if (transform.localRotation.eulerAngles.z > 160 && transform.localRotation.eulerAngles.z < 200) {
-				sndController.put2.Play ();
-				face.Bad ();
-			} else {
-				sndController.put.Play ();
-				face.Normal ();
+	void OnCollisionEnter2D(Collision2D collision)
+        {
+		if (collision.gameObject.tag == "Blocks")
+            {
+			doubleJumpMoment = false; 
+			isGround = true; 
+			if (transform.localRotation.eulerAngles.z > 160 && transform.localRotation.eulerAngles.z < 200)
+                {
+				sndController.put2.Play (); 
+				face.Bad (); 
+			}else 
+                {
+				sndController.put.Play (); 
+				face.Normal (); 
 			}
 		}
 
-		if (collision.gameObject.tag == "Damager") {
-			GetComponent<PlayerRespawner> ().Respawn ();
+		if (collision.gameObject.tag == "Damager")
+            {
+			GetComponent < PlayerRespawner > ().Respawn (); 
 		}
 	}
 
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Blocks")
-            isGround = true;
+            isGround = true; 
     }
 
-    void OnCollisionExit2D(Collision2D collision) {
+    void OnCollisionExit2D(Collision2D collision)
+        {
 		if (collision.gameObject.tag == "Blocks")
-			isGround = false;
+			isGround = false; 
 	}
 
 

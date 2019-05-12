@@ -1,16 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections; 
+using System.Collections.Generic; 
+using UnityEngine; 
 
-public class ForceFieldControl : MonoBehaviour {
+public class ForceFieldControl:MonoBehaviour 
+                {
 
-	public Collider2D forceFieldCollider;
-    public ParticleSystem forceFieldParticle;
+	public Collider2D forceFieldCollider; 
+public ParticleSystem forceFieldParticle; 
 
 	public void DeactivateField()
-    {
-        
-        forceFieldCollider.enabled = false;
-        forceFieldParticle.Stop();
-    }
+{
+
+forceFieldCollider.enabled = false; 
+forceFieldParticle.Stop(); 
+}
 }

@@ -1,35 +1,36 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections; 
+using System.Collections.Generic; 
+using UnityEngine; 
 
-public class CameraAutoZoom : MonoBehaviour {
+public class CameraAutoZoom:MonoBehaviour 
+    {
 
     // this is the time it takes the camera to go from max zoom to min zoom.
-    public float scaleTime;
-    public float maxSize;  // max zoom out size of our camera
-    public float minSize;  // min zoom out size of our camera
-    public float minSpeed;  // min speed the camera cares about.. this or slower = min Zoomout
-    public float maxSpeed;  // the max speed our camera careas about.. this or faster = max zoomout
-    public GameObject Player;
+    public float scaleTime; 
+    public float maxSize; // max zoom out size of our camera
+public float minSize; // min zoom out size of our camera
+public float minSpeed; // min speed the camera cares about.. this or slower = min Zoomout
+public float maxSpeed; // the max speed our camera careas about.. this or faster = max zoomout
+public GameObject Player; 
 
-    private PlayerControl playerScript;
-    private Camera camera;
-    private bool isScaling;
-    private float currentSize;
-    private float targetSize;
+    private PlayerControl playerScript; 
+    private Camera cam; 
+    private bool isScaling; 
+    private float currentSize; 
+    private float targetSize; 
     private float speedRange; // this is used for lerp function
-    private float sizeDelta;  // how long it takes to change the camera size 1 unit;
+private float sizeDelta; // how long it takes to change the camera size 1 unit;
 
 
     void Start()
     {
-        playerScript = Player.GetComponent<PlayerControl>();
-        camera = GetComponent<Camera>();
+        playerScript = Player.GetComponent < PlayerControl > (); 
+        cam = GetComponent < Camera > (); 
 
-        isScaling = false;
-        currentSize = maxSize;
-        speedRange = maxSpeed - minSpeed;
-        sizeDelta = (maxSize - minSize) / scaleTime;
+        isScaling = false; 
+        currentSize = maxSize; 
+        speedRange = maxSpeed - minSpeed; 
+        sizeDelta = (maxSize - minSize)/scaleTime; 
 
     }
 
@@ -77,7 +78,7 @@ public class CameraAutoZoom : MonoBehaviour {
                 if (currentSize < targetSize)
                     currentSize = targetSize;
             }
-            camera.orthographicSize = currentSize;
+            cam.orthographicSize = currentSize;
             yield return null;
         }
         isScaling = false;

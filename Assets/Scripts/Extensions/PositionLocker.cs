@@ -1,17 +1,18 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using UnityEngine; 
+using System.Collections; 
 
-public class PositionLocker : MonoBehaviour {
+public class PositionLocker:MonoBehaviour 
+{
 
-	private Vector2 startPosition;
+	private Vector2 startPosition; 
 
-	void Awake () 
+	void Awake ()
 	{
-		startPosition = transform.position;
+		startPosition = transform.position; 
 	}
 
-	void Update () 
+	void Update ()
 	{
-		transform.position = startPosition;
+		transform.position = startPosition; 
 	}
 }
