@@ -9,7 +9,7 @@ public class PortalEffect:MonoBehaviour
 
 	public void TwistOpenTween()
 	{
-		openSound.Play (); 
+		if (!openSound.isPlaying) openSound.Play (); 
 		LeanTween.alpha (gameObject, 1f, 1f); 
 		LeanTween.scale(gameObject, new Vector3(1f, 1f, 1f), 1f).setEase(LeanTweenType.easeInOutElastic).setFrom(Vector3.zero); 
 		LeanTween.rotateAround(gameObject, new Vector3(0f, 0f, -1f), 180f, 0.5f).setDelay(1f); 
