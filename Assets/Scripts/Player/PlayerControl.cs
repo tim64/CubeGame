@@ -25,11 +25,11 @@ public class PlayerControl:MonoBehaviour
 	FaceControl face; 
 	public KeyCode jumpButton; 
 	public Transform jumpVectorPoint; 
-	public TrailRenderer fire; 
+	public TrailRenderer doubleJumpFire; 
     public bool doubleJump; 
 	public bool smallCube; 
 
-    FreeParallax parallax; 
+    FreeParallax parallax;
 
     float speed; 
     bool doubleJumpMoment; 
@@ -208,6 +208,18 @@ public class PlayerControl:MonoBehaviour
         {
 		if (collision.gameObject.tag == "Blocks")
 			isGround = false; 
+	}
+	
+	public void GetDoubleJump()
+	{
+		doubleJump = true;
+		doubleJumpFire.emitting = true;
+	}
+	
+	public void RemoveDoubleJump()
+	{
+		doubleJump = false;
+		doubleJumpFire.emitting = false;
 	}
 
 
