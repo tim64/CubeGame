@@ -52,4 +52,12 @@ public class GateTeleport:MonoBehaviour
 	{
 		teleportSound.volume = value; 
 	}
+
+	// public void MoveCameraToNextPort()
+	// {
+	// 	EditorGUIUtility.PingObject(teleportPoint);
+	// 	Selection.activeGameObject = teleportPoint.parent.gameObject;
+	// 	SceneView.lastActiveSceneView.FrameSelected();
+	// 	Selection.activeGameObject = currentlActive;
+	// }
 }
