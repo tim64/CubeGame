@@ -1,4 +1,5 @@
-﻿using UnityEngine; 
+﻿using UnityEditor;
+using UnityEngine;
 
 public class GateTeleport:MonoBehaviour 
 {
@@ -28,9 +29,9 @@ public class GateTeleport:MonoBehaviour
 
 
             LeanTween.scale (player, Vector3.zero, 0.5f).setOnComplete (delegate()
-                            {
+            {
 				Camera.main.transform.position = teleportPoint.position; 
-				player.GetComponent < Rigidbody2D > ().MovePosition(teleportPoint.position); 
+				player.GetComponent <Rigidbody2D> ().MovePosition(teleportPoint.position); 
 
 				LeanTween.value (gameObject, UpdateVolume, teleportSound.volume, 0, 1.5f).setOnComplete (delegate()
 				{
@@ -53,11 +54,11 @@ public class GateTeleport:MonoBehaviour
 		teleportSound.volume = value; 
 	}
 
-	// public void MoveCameraToNextPort()
-	// {
-	// 	EditorGUIUtility.PingObject(teleportPoint);
-	// 	Selection.activeGameObject = teleportPoint.parent.gameObject;
-	// 	SceneView.lastActiveSceneView.FrameSelected();
-	// 	Selection.activeGameObject = currentlActive;
-	// }
+	public void MoveCameraToNextPort()
+	{
+		EditorGUIUtility.PingObject(teleportPoint);
+        Selection.activeGameObject = teleportPoint.gameObject;
+        SceneView.lastActiveSceneView.FrameSelected();
+		Selection.activeGameObject = teleportPoint.gameObject;
+	}
 }
