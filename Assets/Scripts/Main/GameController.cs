@@ -6,9 +6,11 @@ using UnityEngine.SceneManagement;
 public class GameController:MonoBehaviour 
     {
 
+	public FreeParallax parallax;
+
 	void Start ()
 	{
-		
+		parallax.gameObject.SetActive(true);
 	}
 
 	public void Restart()
