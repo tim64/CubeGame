@@ -22,10 +22,12 @@ public class GateTeleport:MonoBehaviour
 		if (coll.gameObject.tag == "Player")
 		{
 			GameObject player = coll.gameObject; 
-			teleportSound.Play (); 
+			//teleportSound.Play (); 
 
-            ParticleSystem blink = Instantiate(blinkFX, transform.position, Quaternion.identity); 
-            Destroy(blink, 1); 
+            //ParticleSystem blink = Instantiate(blinkFX, transform.position, Quaternion.identity); 
+            //Destroy(blink, 1); 
+
+			//Перемещение игрока
 
 
             LeanTween.scale (player, Vector3.zero, 0.5f).setOnComplete (delegate()
