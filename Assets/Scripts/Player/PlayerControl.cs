@@ -25,9 +25,9 @@ public class PlayerControl:MonoBehaviour
 	FaceControl face; 
 	public KeyCode jumpButton; 
 	public Transform jumpVectorPoint; 
-	public TrailRenderer doubleJumpFire; 
-    public bool doubleJump; 
-	public bool smallCube; 
+	public TrailRenderer doubleJumpFire;
+    private bool doubleJump;
+    public bool smallCube; 
 
     FreeParallax parallax;
 
@@ -69,6 +69,23 @@ public class PlayerControl:MonoBehaviour
         }
     }
 
+    public bool DoubleJump
+    {
+        get
+        {
+            return doubleJump;
+        }
+
+        set
+        {
+            doubleJump = value;
+            if (value)
+            {
+                force = 120;
+            }
+        }
+    }
+
     private void Awake()
     {
         parallax = GameObject.Find("Parallax").GetComponent < FreeParallax > (); 
@@ -91,13 +108,13 @@ public class PlayerControl:MonoBehaviour
 	{
         //ПРЫГАЕМ ВПРАВО
         //Двойной прыжок
-        if (Input.GetKeyDown(KeyCode.RightArrow) &&  ! isGround &&  ! forceDisableControls && doubleJump &&  ! doubleJumpMoment)
-        {
-            //Не дает делать двойные прыжки в воздухе
-            direction = 1; 
-            doubleJumpMoment = true; 
-            Jump (); 
-        }
+        // if (Input.GetKeyDown(KeyCode.RightArrow) &&  ! isGround &&  ! forceDisableControls && DoubleJump &&  ! DoubleJumpMoment)
+        // {
+        //     //Не дает делать двойные прыжки в воздухе
+        //     direction = 1; 
+        //     DoubleJumpMoment = true; 
+        //     Jump (); 
+        // }
 
         //Обычный прыжок
         if (Input.GetKeyDown(KeyCode.RightArrow) && isGround &&  ! forceDisableControls)
@@ -108,13 +125,13 @@ public class PlayerControl:MonoBehaviour
 
         //ПРЫГАЕМ ВЛЕВО
         //Двойной прыжок
-        if (Input.GetKeyDown(KeyCode.LeftArrow) &&  ! isGround &&  ! forceDisableControls && doubleJump &&  ! doubleJumpMoment)
-        {
-            //Не дает делать двойные прыжки в воздухе
-            direction = -1; 
-            doubleJumpMoment = true; 
-            Jump(); 
-        }
+        // if (Input.GetKeyDown(KeyCode.LeftArrow) &&  ! isGround &&  ! forceDisableControls && doubleJump &&  ! doubleJumpMoment)
+        // {
+        //     //Не дает делать двойные прыжки в воздухе
+        //     direction = -1; 
+        //     doubleJumpMoment = true; 
+        //     Jump(); 
+        // }
 
         //Обычный прыжок
         if (Input.GetKeyDown(KeyCode.LeftArrow) && isGround &&  ! forceDisableControls)
@@ -150,11 +167,11 @@ public class PlayerControl:MonoBehaviour
 		}
 
 		//Двойные прыжки
-        if (doubleJumpMoment)
-        {
-            boostX = 1.5f; 
-            boostY = 3; 
-        }
+        // if (DoubleJumpMoment)
+        // {
+        //     boostX = 1.5f; 
+        //     boostY = 3; 
+        // }
         //Прыжки миникуба
         if (smallCube)
         {
@@ -162,7 +179,7 @@ public class PlayerControl:MonoBehaviour
             boostY = 1f; 
         }
         //Обычные прыжки
-        if ( ! smallCube &&  ! doubleJump)
+        if ( ! smallCube &&  ! DoubleJump)
         {
             boostX = 1.1f; 
             boostY = 1.1f; 
@@ -179,7 +196,7 @@ public class PlayerControl:MonoBehaviour
         {
 		if (collision.gameObject.tag == "Blocks")
             {
-			doubleJumpMoment = false; 
+			//DoubleJumpMoment = false; 
 			isGround = true; 
 			if (transform.localRotation.eulerAngles.z > 160 && transform.localRotation.eulerAngles.z < 200)
                 {
@@ -212,13 +229,13 @@ public class PlayerControl:MonoBehaviour
 	
 	public void GetDoubleJump()
 	{
-		doubleJump = true;
+		DoubleJump = true;
 		doubleJumpFire.emitting = true;
 	}
 	
 	public void RemoveDoubleJump()
 	{
-		doubleJump = false;
+		DoubleJump = false;
 		doubleJumpFire.emitting = false;
 	}
 

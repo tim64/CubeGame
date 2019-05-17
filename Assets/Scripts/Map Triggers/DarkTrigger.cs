@@ -1,18 +1,43 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.PostProcessing;
 
 public class DarkTrigger : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public PostProcessingProfile postProcProf;
+    public GameObject editorText;
+    private PostProcessingProfile backup;
+    private ColorGradingModel.Settings colorSettings;
+    private float param;
+
+
     void Start()
     {
-        
+        editorText.SetActive(false);
+        GetComponent<SpriteRenderer>().enabled = false;
+
+        backup = postProcProf;
+        param = postProcProf.colorGrading.settings.basic.temperature;
+        colorSettings = postProcProf.colorGrading.settings;
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter2D(Collider2D obj)
     {
-        
+        if (obj.tag == "Player")
+        {
+            LeanTween.value(gameObject, updateNewValue, 1, 50, 3);
+        }
+    }
+
+    private void updateNewValue(float max)
+    {
+        print(param);
+        param = max;
+        colorSettings.basic.temperature = param;
+        postProcProf.colorGrading.settings = colorSettings;
+    }
+
+    private void OnDestroy()
+    {
+        postProcProf = backup;
     }
 }

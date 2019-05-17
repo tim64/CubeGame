@@ -19,6 +19,6 @@ public class GameDebug : MonoBehaviour
     [MenuItem("Game Debug/Give double jump")]
     private static void GiveDoubleJump()
     {
-		GameObject.Find("Player").GetComponent<PlayerControl>().doubleJump = true;
+		GameObject.Find("Player").GetComponent<PlayerControl>().DoubleJump = true;
     }
 }
