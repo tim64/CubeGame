@@ -81,7 +81,7 @@ public class PlayerControl:MonoBehaviour
             doubleJump = value;
             if (value)
             {
-                force = 120;
+                force = 200;
             }
         }
     }

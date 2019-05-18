@@ -30,7 +30,6 @@ public class DarkTrigger : MonoBehaviour
 
     private void updateNewValue(float max)
     {
-        print(param);
         param = max;
         colorSettings.basic.temperature = param;
         postProcProf.colorGrading.settings = colorSettings;
