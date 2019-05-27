@@ -1,4 +1,4 @@
-﻿// License: https://en.wikipedia.org/wiki/MIT_License
+// License: https://en.wikipedia.org/wiki/MIT_License
 // Code created by Jeff Johnson & Digital Ruby, LLC - http://www.digitalruby.com
 // Code is from the Free Parallax asset on the Unity asset store: http://u3d.as/bvv
 // Code may be redistributed in source form, provided all the comments at the top here are kept intact
@@ -6,7 +6,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 
 public delegate void FreeParallaxElementRepositionLogicFunction(FreeParallax p, FreeParallaxElement element, float amount, GameObject obj, Renderer r);
@@ -133,9 +132,9 @@ public class FreeParallax : MonoBehaviour
         StartCoroutine(InitializeAfterSlightDelay());
 
 #else
-		
-		SetupElements();
-		
+
+        SetupElements ();
+
 #endif
 
     }
@@ -210,8 +209,8 @@ public class FreeParallaxElement
     internal readonly List<Renderer> GameObjectRenderers = new List<Renderer>();
 
     [Tooltip("Game objects to parallax. These will be cycled in sequence, which allows a long rolling background or different individual objects. " +
-             "If there is only one, and the reposition logic specifies to wrap, a second object will be added that is a clone of the first. " +
-             "It is recommended that these all be the same size.")]
+        "If there is only one, and the reposition logic specifies to wrap, a second object will be added that is a clone of the first. " +
+        "It is recommended that these all be the same size.")]
     public List<GameObject> GameObjects;
 
     [Tooltip("The speed at which this object moves in relation to the speed of the parallax.")]
@@ -292,7 +291,7 @@ public class FreeParallaxElement
                     if (objWidth < 1.1f)
                     {
                         Debug.LogWarning("Game object in element index " + index.ToString() + " did not fit the screen width but was asked to wrap, so it was stretched. This can be fixed " +
-                                         "by making sure any parallax graphics that wrap are at least 1.1x times the largest width resolution you support.");
+                            "by making sure any parallax graphics that wrap are at least 1.1x times the largest width resolution you support.");
                         Vector3 scale = obj.transform.localScale;
                         scale.x = (scale.x * (1.0f / objWidth)) + 0.1f;
                         obj.transform.localScale = scale;
@@ -305,7 +304,7 @@ public class FreeParallaxElement
                     if (objHeight < 1.1f)
                     {
                         Debug.LogWarning("Game object in element index " + index.ToString() + " did not fit the screen height but was asked to wrap, so it was stretched. This can be fixed " +
-                                         "by making sure any parallax graphics that wrap are at least 1.1x times the largest height resolution you support.");
+                            "by making sure any parallax graphics that wrap are at least 1.1x times the largest height resolution you support.");
                         Vector3 scale = obj.transform.localScale;
                         scale.y = (scale.y * (1.0f / objHeight)) + 0.1f;
                         obj.transform.localScale = scale;
@@ -336,10 +335,10 @@ public class FreeParallaxElement
         {
             GameObject obj = GameObjects[i];
             Renderer r = GameObjectRenderers[i];
-           // if (RepositionLogic.SortingOrder != 0)
-          //  {
-          //      r.sortingOrder = RepositionLogic.SortingOrder;
-          //  }
+            // if (RepositionLogic.SortingOrder != 0)
+            //  {
+            //      r.sortingOrder = RepositionLogic.SortingOrder;
+            //  }
 
             if (RepositionLogic.PositionMode == FreeParallaxPositionMode.IndividualStartOffScreen ||
                 RepositionLogic.PositionMode == FreeParallaxPositionMode.IndividualStartOnScreen)

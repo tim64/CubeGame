@@ -1,24 +1,24 @@
-﻿using UnityEngine; 
-using System.Collections; 
-using UnityEditor; 
+using System.Collections;
+using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(Block))]
-public class BlockEditor:Editor
+public class BlockEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        DrawDefaultInspector(); 
+        DrawDefaultInspector();
 
-        Block myScript = (Block)target; 
-        
+        Block myScript = (Block)target;
+
         if (GUILayout.Button("Next sprite"))
         {
-            myScript.NextSprite(); 
+            myScript.NextSprite();
         }
 
         if (GUILayout.Button("Prew sprite"))
         {
-            myScript.PrewSprite(); 
+            myScript.PrewSprite();
         }
     }
 }

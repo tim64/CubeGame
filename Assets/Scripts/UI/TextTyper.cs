@@ -1,90 +1,90 @@
-﻿﻿using UnityEngine; 
-using System.Collections; 
-using UnityEngine.UI; 
 
-[RequireComponent (typeof (Text))]
-[RequireComponent (typeof (RectTransform))]
+using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
 
-public class TextTyper:MonoBehaviour 
-{	
-	[SerializeField] 
-	private float typeSpeed; 
-	[SerializeField] 
-	private float startDelay; 
-	[SerializeField] 
-	private float volumeVariation; 
-	[SerializeField]
-	private bool startOnAwake; 
+[RequireComponent(typeof(Text))]
+[RequireComponent(typeof(RectTransform))]
 
-	private int counter; 
-	private string textToType; 
-	private bool typing; 
-	private Text textComp; 
-	private AudioSource audioComp; 
-
-	void Awake()
-	{
-		textComp = GetComponent < Text > (); 
-		audioComp = GetComponent < AudioSource > (); 
-
-		counter = 0; 
-		textToType = textComp.text; 
-		textComp.text = ""; 
-
-		if (startOnAwake)
-		{
-StartTyping(); 
-		}
-	}
-
-	public void StartTyping()
-	{	
-		if ( ! typing)
-		{
-			InvokeRepeating("Type", startDelay, typeSpeed); 
-		}
-		else
-		{
-			print(gameObject.name + " : Is already typing!"); 
-		}
-	}
-
-	public void StopTyping()
-	{
-counter = 0; 
-typing = false; 
-		CancelInvoke("Type"); 
-	}
-
-public void UpdateText(string newText)
+public class TextTyper : MonoBehaviour
 {
-StopTyping(); 
-textComp.text = ""; 
-textToType = newText; 
-StartTyping(); 
-}
+    [SerializeField]
+    private float typeSpeed;
+    [SerializeField]
+    private float startDelay;
+    [SerializeField]
+    private float volumeVariation;
+    [SerializeField]
+    private bool startOnAwake;
 
-	private void Type()
-	{	
-		typing = true; 
-		textComp.text = textComp.text + textToType[counter]; 
-		audioComp.Play(); 
-		counter++; 
+    private int counter;
+    private string textToType;
+    private bool typing;
+    private Text textComp;
+    private AudioSource audioComp;
 
-		RandomiseVolume(); 
+    void Awake()
+    {
+        textComp = GetComponent<Text>();
+        audioComp = GetComponent<AudioSource>();
 
-		if (counter == textToType.Length)
-		{	
-			typing = false; 
-			CancelInvoke("Type"); 
-		}
-	}
+        counter = 0;
+        textToType = textComp.text;
+        textComp.text = "";
 
-	private void RandomiseVolume()
-	{
-		audioComp.volume = Random.Range(1 - volumeVariation, volumeVariation + 1); 
-	}
+        if (startOnAwake)
+        {
+            StartTyping();
+        }
+    }
 
-public bool IsTyping()
-                    {return typing; }
+    public void StartTyping()
+    {
+        if (!typing)
+        {
+            InvokeRepeating("Type", startDelay, typeSpeed);
+        }
+        else
+        {
+            print(gameObject.name + " : Is already typing!");
+        }
+    }
+
+    public void StopTyping()
+    {
+        counter = 0;
+        typing = false;
+        CancelInvoke("Type");
+    }
+
+    public void UpdateText(string newText)
+    {
+        StopTyping();
+        textComp.text = "";
+        textToType = newText;
+        StartTyping();
+    }
+
+    private void Type()
+    {
+        typing = true;
+        textComp.text = textComp.text + textToType[counter];
+        audioComp.Play();
+        counter++;
+
+        RandomiseVolume();
+
+        if (counter == textToType.Length)
+        {
+            typing = false;
+            CancelInvoke("Type");
+        }
+    }
+
+    private void RandomiseVolume()
+    {
+        audioComp.volume = Random.Range(1 - volumeVariation, volumeVariation + 1);
+    }
+
+    public bool IsTyping() { return typing; }
 }

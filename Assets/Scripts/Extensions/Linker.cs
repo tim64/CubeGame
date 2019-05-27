@@ -1,18 +1,18 @@
-﻿using UnityEngine; 
-using System.Collections; 
+using System.Collections;
+using UnityEngine;
 
-public class Linker:MonoBehaviour 
+public class Linker : MonoBehaviour
 {
 
-	public Transform target; 
-	public Color color = Color.white; 
+    public Transform target;
+    public Color color = Color.white;
 
-	void  OnDrawGizmos ()
+    void OnDrawGizmos()
     {
-		if (target != null)
+        if (target != null)
         {
-			Gizmos.color = color; 
-			Gizmos.DrawLine(transform.position, target.position); 
-		}
-	}
+            Gizmos.color = color;
+            Gizmos.DrawLine(transform.position, target.position);
+        }
+    }
 }

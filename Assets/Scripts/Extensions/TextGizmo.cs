@@ -1,81 +1,81 @@
-﻿#if UNITY_EDITOR
-using UnityEngine; 
-using System.Collections.Generic; 
+#if UNITY_EDITOR
+using System.Collections.Generic;
+using UnityEngine;
 
 public class TextGizmo
 {
-	#region Singleton
-	private class Singleton
-	{
-		static Singleton()
-		{
-			if (instance == null)
-			{
-				instance = new TextGizmo(); 
-			}
-		}
-
-		internal static readonly TextGizmo instance; 
-	}
-
-	public static TextGizmo Instance 
+    #region Singleton
+    private class Singleton
     {
-		get 
+        static Singleton()
         {
-			return Singleton.instance; 
-		}
-	}
+            if (instance == null)
+            {
+                instance = new TextGizmo();
+            }
+        }
 
-	#endregion
+        internal static readonly TextGizmo instance;
+    }
 
-	private const int CHAR_TEXTURE_HEIGHT = 11; 
-	private const int CHAR_TEXTURE_WIDTH = 8; 
-	private const string characters = " !#%'()+,-.0123456789;=abcdefghijklmnopqrstuvwxyz_{}~\\?\":/*";
+    public static TextGizmo Instance
+    {
+        get
+        {
+            return Singleton.instance;
+        }
+    }
 
-	private Dictionary<char,string> texturePathLookup;
-	private Dictionary<char, string> specialChars;
+    #endregion
 
-	private TextGizmo()
-	{
-		specialChars = new Dictionary<char, string>();
-		specialChars.Add('\\', "backslash");
-		specialChars.Add('?', "questionmark");
-		specialChars.Add('"', "quotes");
-		specialChars.Add(':', "colon");
-		specialChars.Add('/', "slash");
-		specialChars.Add('*', "star");
+    private const int CHAR_TEXTURE_HEIGHT = 11;
+    private const int CHAR_TEXTURE_WIDTH = 8;
+    private const string characters = " !#%'()+,-.0123456789;=abcdefghijklmnopqrstuvwxyz_{}~\\?\":/*";
 
-		texturePathLookup = new Dictionary<char,string>();
-		for( int c=0; c<characters.Length; c++ )
-		{
-			string charName = specialChars.ContainsKey(characters[c]) ? specialChars[characters[c]] : characters[c].ToString();
-			texturePathLookup.Add(characters[c], "TextGizmo/text_" + charName + ".png");
-		}
-	}
+    private Dictionary<char, string> texturePathLookup;
+    private Dictionary<char, string> specialChars;
 
-	public void DrawText(Camera camera, Vector3 position, object message) { DrawText(camera, position, message != null ? message.ToString() : "(null)"); }
-	public void DrawText(Camera camera, Vector3 position, string format, params object[] args) { DrawText(camera, position, string.Format(format, args)); }
+    private TextGizmo()
+    {
+        specialChars = new Dictionary<char, string>();
+        specialChars.Add('\\', "backslash");
+        specialChars.Add('?', "questionmark");
+        specialChars.Add('"', "quotes");
+        specialChars.Add(':', "colon");
+        specialChars.Add('/', "slash");
+        specialChars.Add('*', "star");
 
-	private void DrawText(Camera camera, Vector3 position, string text)
-	{  
-		string lowerText = text.ToLower();
-		Vector3 screenPoint = camera.WorldToScreenPoint(position);
+        texturePathLookup = new Dictionary<char, string>();
+        for (int c = 0; c < characters.Length; c++)
+        {
+            string charName = specialChars.ContainsKey(characters[c]) ? specialChars[characters[c]] : characters[c].ToString();
+            texturePathLookup.Add(characters[c], "TextGizmo/text_" + charName + ".png");
+        }
+    }
 
-		Vector3 offset = Vector3.zero;
-		for(int c = 0, n = lowerText.Length; c < n; ++c)
-		{  
-			if ('\n'.Equals(lowerText[c]))
-			{
-				offset.y += CHAR_TEXTURE_HEIGHT + 2;
-				offset.x = 0;
-				continue;
-			}
-			else if(texturePathLookup.ContainsKey(lowerText[c]))
-			{
-				Gizmos.DrawIcon(camera.ScreenToWorldPoint(screenPoint + offset), texturePathLookup[lowerText[c]]);
-				offset.x += CHAR_TEXTURE_WIDTH;
-			}
-		}
-	}
+    public void DrawText(Camera camera, Vector3 position, object message) { DrawText(camera, position, message != null ? message.ToString() : "(null)"); }
+    public void DrawText(Camera camera, Vector3 position, string format, params object[] args) { DrawText(camera, position, string.Format(format, args)); }
+
+    private void DrawText(Camera camera, Vector3 position, string text)
+    {
+        string lowerText = text.ToLower();
+        Vector3 screenPoint = camera.WorldToScreenPoint(position);
+
+        Vector3 offset = Vector3.zero;
+        for (int c = 0, n = lowerText.Length; c < n; ++c)
+        {
+            if ('\n'.Equals(lowerText[c]))
+            {
+                offset.y += CHAR_TEXTURE_HEIGHT + 2;
+                offset.x = 0;
+                continue;
+            }
+            else if (texturePathLookup.ContainsKey(lowerText[c]))
+            {
+                Gizmos.DrawIcon(camera.ScreenToWorldPoint(screenPoint + offset), texturePathLookup[lowerText[c]]);
+                offset.x += CHAR_TEXTURE_WIDTH;
+            }
+        }
+    }
 }
 #endif

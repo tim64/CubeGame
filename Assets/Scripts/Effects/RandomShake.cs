@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class RandomShake : MonoBehaviour
 {
@@ -21,22 +21,22 @@ public class RandomShake : MonoBehaviour
         startPosition = transform.localPosition;
 
         LeanTween.delayedCall(randomPeriod, Shake).setLoopClamp();
-       	LeanTween.delayedCall(0.5f, CheckRadius).setLoopClamp();
+        LeanTween.delayedCall(0.5f, CheckRadius).setLoopClamp();
     }
 
     private void CheckRadius()
     {
-			if (Vector3.Distance(startPosition, transform.localPosition) > centerDistance)
-					transform.localPosition = startPosition;
+        if (Vector3.Distance(startPosition, transform.localPosition) > centerDistance)
+            transform.localPosition = startPosition;
     }
 
     void Shake()
     {
-			if (isMovingObject)
+        if (isMovingObject)
             transform.localPosition = transform.position + (Vector3)Random.insideUnitCircle * shakeRadius;
         else
             transform.localPosition = transform.localPosition + (Vector3)Random.insideUnitCircle * shakeRadius;
-						
+
         transform.localPosition = new Vector3(transform.localPosition.x, startPosition.y, 0);
     }
 

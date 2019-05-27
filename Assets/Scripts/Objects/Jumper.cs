@@ -1,17 +1,17 @@
-﻿using UnityEngine; 
-using System.Collections; 
+using System.Collections;
+using UnityEngine;
 
-public class Jumper:MonoBehaviour 
+public class Jumper : MonoBehaviour
 {
 
-	public Transform targetAngle; 
+    public Transform targetAngle;
 
-	void OnTriggerEnter2D(Collider2D coll)
-	{
-		if (coll.gameObject.tag == "Player" && targetAngle != null)
-		{
-			PlayerControl player = coll.gameObject.GetComponent < PlayerControl > (); 
-			player.gameObject.GetComponent < Rigidbody2D > ().velocity = targetAngle.localPosition; 
-		}
-	}
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.gameObject.tag == "Player" && targetAngle != null)
+        {
+            PlayerControl player = coll.gameObject.GetComponent<PlayerControl>();
+            player.gameObject.GetComponent<Rigidbody2D>().velocity = targetAngle.localPosition;
+        }
+    }
 }

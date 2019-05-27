@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.PostProcessing;
 
 public class DarkTrigger : MonoBehaviour
@@ -8,7 +8,6 @@ public class DarkTrigger : MonoBehaviour
     private PostProcessingProfile backup;
     private ColorGradingModel.Settings colorSettings;
     private float param;
-
 
     void Start()
     {

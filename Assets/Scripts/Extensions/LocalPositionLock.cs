@@ -1,30 +1,30 @@
-﻿using UnityEngine; 
-using System.Collections; 
+using System.Collections;
+using UnityEngine;
 
-public class LocalPositionLock:MonoBehaviour 
+public class LocalPositionLock : MonoBehaviour
 {
 
-	public bool EditVectorPoint = false; 
+    public bool EditVectorPoint = false;
 
-	private Vector3 startPos; 
-	private Vector3 mainPos; 
-	private Vector3 newPos; 
-	private Transform parent; 
+    private Vector3 startPos;
+    private Vector3 mainPos;
+    private Vector3 newPos;
+    private Transform parent;
 
-	void Awake()
-	{
-		startPos = transform.localPosition; 
-		parent = transform.parent; 
+    void Awake()
+    {
+        startPos = transform.localPosition;
+        parent = transform.parent;
 
-	}
+    }
 
-	void Update()
-	{
-		if ( ! EditVectorPoint)
+    void Update()
+    {
+        if (!EditVectorPoint)
         {
-			mainPos = parent.position; 
-			newPos = new Vector3 (parent.position.x + startPos.x, parent.position.y + startPos.y); 
-			transform.position = newPos; 
-		}
-	}
+            mainPos = parent.position;
+            newPos = new Vector3(parent.position.x + startPos.x, parent.position.y + startPos.y);
+            transform.position = newPos;
+        }
+    }
 }
