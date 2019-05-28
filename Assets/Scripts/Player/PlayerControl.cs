@@ -42,32 +42,6 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    bool twin;
-
-    public bool Twin
-    {
-        get
-        {
-            return twin;
-        }
-
-        set
-        {
-            if (!twin)
-            {
-                //face.ToEvil();
-                GetComponent<SpriteRenderer>().color = Color.red;
-            }
-            else
-            {
-                // face.ToNormal();
-                GetComponent<SpriteRenderer>().color = Color.white;
-            }
-
-            twin = value;
-        }
-    }
-
     public bool DoubleJump
     {
         get
@@ -104,41 +78,21 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
-        //ПРЫГАЕМ ВПРАВО
-        //Двойной прыжок
-        // if (Input.GetKeyDown(KeyCode.RightArrow) &&  ! isGround &&  ! forceDisableControls && DoubleJump &&  ! DoubleJumpMoment)
-        // {
-        //     //Не дает делать двойные прыжки в воздухе
-        //     direction = 1; 
-        //     DoubleJumpMoment = true; 
-        //     Jump (); 
-        // }
 
-        //Обычный прыжок
         if (Input.GetKeyDown(KeyCode.RightArrow) && isGround && !forceDisableControls)
         {
             direction = 1;
             Jump();
         }
 
-        //ПРЫГАЕМ ВЛЕВО
-        //Двойной прыжок
-        // if (Input.GetKeyDown(KeyCode.LeftArrow) &&  ! isGround &&  ! forceDisableControls && doubleJump &&  ! doubleJumpMoment)
-        // {
-        //     //Не дает делать двойные прыжки в воздухе
-        //     direction = -1; 
-        //     doubleJumpMoment = true; 
-        //     Jump(); 
-        // }
-
-        //Обычный прыжок
         if (Input.GetKeyDown(KeyCode.LeftArrow) && isGround && !forceDisableControls)
         {
             direction = -1;
             Jump();
         }
 
-        parallax.Speed = direction * rb.velocity.magnitude / 10;
+        if (GetComponent<Rigidbody2D>() != null)
+            parallax.Speed = direction * rb.velocity.magnitude / 10;
 
     }
 
@@ -149,44 +103,37 @@ public class PlayerControl : MonoBehaviour
 
     void Jump()
     {
-        //int tweendirection = 1;
-        //if (twin) tweendirection = -1;
-
-        face.Jump();
-        if (!smallCube)
+        if (GetComponent<Rigidbody2D>() != null)
         {
-            sndController.jump.pitch = Random.Range(0.6f, 1.2f);
-            sndController.jump.Play();
-        }
-        else
-        {
-            sndController.jumpSmall.pitch = Random.Range(0.6f, 1.2f);
-            sndController.jumpSmall.Play();
-        }
+            face.Jump();
+            if (!smallCube)
+            {
+                sndController.jump.pitch = Random.Range(0.6f, 1.2f);
+                sndController.jump.Play();
+            }
+            else
+            {
+                sndController.jumpSmall.pitch = Random.Range(0.6f, 1.2f);
+                sndController.jumpSmall.Play();
+            }
 
-        //Двойные прыжки
-        // if (DoubleJumpMoment)
-        // {
-        //     boostX = 1.5f; 
-        //     boostY = 3; 
-        // }
-        //Прыжки миникуба
-        if (smallCube)
-        {
-            boostX = 0.5f;
-            boostY = 1f;
-        }
-        //Обычные прыжки
-        if (!smallCube && !DoubleJump)
-        {
-            boostX = 1.1f;
-            boostY = 1.1f;
-        }
+            if (smallCube)
+            {
+                boostX = 0.5f;
+                boostY = 1f;
+            }
+            //Обычные прыжки
+            if (!smallCube && !DoubleJump)
+            {
+                boostX = 1.1f;
+                boostY = 1.1f;
+            }
 
-        speedX = Mathf.Abs(jumpVectorPoint.localPosition.x) * force * direction;
-        speedY = Mathf.Abs(jumpVectorPoint.localPosition.y) * force;
+            speedX = Mathf.Abs(jumpVectorPoint.localPosition.x) * force * direction;
+            speedY = Mathf.Abs(jumpVectorPoint.localPosition.y) * force;
 
-        rb.AddForce(new Vector2(speedX * boostX, speedY * boostY));
+            rb.AddForce(new Vector2(speedX * boostX, speedY * boostY));
+        }
 
     }
 

@@ -8,10 +8,13 @@ public class PostProcessingThunder : MonoBehaviour
     public PostProcessingProfile ppProfile;
     private float defaultBrightLevel = 3;
 
+    public bool on = false;
+
     void Awake()
     {
-        StartCoroutine("ThunderOn");
+        if (on == true) StartCoroutine("ThunderOn");
     }
+
 
     IEnumerator ThunderOn()
     {
@@ -31,13 +34,8 @@ public class PostProcessingThunder : MonoBehaviour
 
     void ChangeBloomAtRuntime(float bright)
     {
-        //copy current bloom settings from the profile into a temporary variable
         ColorGradingModel.Settings toneSetting = ppProfile.colorGrading.settings;
-
-        //change the intensity in the temporary settings variable
         toneSetting.tonemapping.neutralWhiteLevel = bright;
-
-        //set the bloom settings in the actual profile to the temp settings with the changed value
         ppProfile.colorGrading.settings = toneSetting;
     }
 }
