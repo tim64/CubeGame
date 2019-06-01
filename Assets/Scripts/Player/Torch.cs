@@ -1,17 +1,17 @@
 using UnityEngine;
 
-public class Tourch : MonoBehaviour
+public class Torch : MonoBehaviour
 {
     public GameObject lightPoint;
     public GameObject rayFX;
 
-    public bool on = false;
+    public bool lightOn = false;
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.gameObject.tag == "Player" && !on)
+        if (coll.gameObject.tag == "Player" && !lightOn)
         {
-            on = true;
+            lightOn = true;
             rayFX.SetActive(true);
             lightPoint.SetActive(true);
         }
