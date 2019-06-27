@@ -35,6 +35,7 @@ public class PlayerControl : MonoBehaviour
     public TrailRenderer doubleJumpFire;
 
     public int force = 100;
+    public int direction = 1;
     public bool forceDisableControls = false;
     public bool isGround = false;
     public bool smallCube;
@@ -43,7 +44,6 @@ public class PlayerControl : MonoBehaviour
     private bool doubleJump;
     private int forceX;
     private int forceY;
-    private int direction = 1;
     private float boostX = 1.1f;
     private float boostY = 1.1f;
     private float speedX;
@@ -54,15 +54,13 @@ public class PlayerControl : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerSoundController sndController;
     private FaceControl face;
-    private FreeParallax parallax;
+    //private FreeParallax parallax;
     
 
-
-
-    private void Awake()
-    {
-        parallax = GameObject.Find("Parallax").GetComponent<FreeParallax>();
-    }
+    // private void Awake()
+    // {
+    //     parallax = GameObject.Find("Parallax").GetComponent<FreeParallax>();
+    // }
 
     void Start()
     {
@@ -91,8 +89,8 @@ public class PlayerControl : MonoBehaviour
             Jump();
         }
 
-        if (GetComponent<Rigidbody2D>() != null)
-            parallax.Speed = direction * rb.velocity.magnitude / 10;
+        // if (GetComponent<Rigidbody2D>() != null)
+        //     parallax.Speed = direction * rb.velocity.magnitude / 10;
 
     }
 

@@ -77,13 +77,9 @@ public class SpawnPointSystem : MonoBehaviour
             //уменьшаем персонажа перед анимацией скейла
             if (appearType == AnimationType.SCALE) character.transform.localScale = Vector2.zero;
             virtualCam.Follow = character.transform;
-            //Camera.main.GetComponent<Camera2DFollow> ().target = character.transform;
-            // Camera.main.GetComponent<CameraAutoZoom>().Player = character;
-            //Camera.main.GetComponent<CameraAutoZoom>().enabled = true;
 
             AppearType = AppearType; //Setting force call
 
-            //Tween
             if (descr != null)
             {
                 descr.setOnComplete(delegate ()
