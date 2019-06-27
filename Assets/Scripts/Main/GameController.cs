@@ -6,7 +6,7 @@ public class GameController : MonoBehaviour
 {
     void Start()
     {
-        LevelController.instance.LoadFirstLevel();
+
     }
 
     public void Restart()
