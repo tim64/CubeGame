@@ -1,10 +1,8 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using MathExtension;
 
 public class PlayerControl : MonoBehaviour
 {
-
     public float Speed
     {
         get
@@ -25,7 +23,7 @@ public class PlayerControl : MonoBehaviour
             doubleJump = value;
             if (value)
             {
-                force = 200;
+                force = Constants.DOUBLEJUMP_FORCE;
             }
         }
     }
@@ -34,7 +32,10 @@ public class PlayerControl : MonoBehaviour
     public Transform jumpVectorPoint;
     public TrailRenderer doubleJumpFire;
 
-    public int force = 100;
+    public int force = Constants.FORCE;
+    private float boostX = Constants.NORMAL_BOOST_X;
+    private float boostY = Constants.NORMAL_BOOST_Y;
+
     public int direction = 1;
     public bool forceDisableControls = false;
     public bool isGround = false;
@@ -44,27 +45,20 @@ public class PlayerControl : MonoBehaviour
     private bool doubleJump;
     private int forceX;
     private int forceY;
-    private float boostX = 1.1f;
-    private float boostY = 1.1f;
+
     private float speedX;
     private float speedY;
     private float speed;
+    float current_angle;
 
     private Bounds playerBounds;
     private Rigidbody2D rb;
     private PlayerSoundController sndController;
     private FaceControl face;
-    //private FreeParallax parallax;
-    
-
-    // private void Awake()
-    // {
-    //     parallax = GameObject.Find("Parallax").GetComponent<FreeParallax>();
-    // }
 
     void Start()
     {
-        name = "Player";
+        name = Constants.PLAYER_NAME;
         sndController = GetComponent<PlayerSoundController>();
         face = GetComponent<FaceControl>();
         rb = GetComponent<Rigidbody2D>();
@@ -76,22 +70,11 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.RightArrow) && isGround && !forceDisableControls)
+        if (isGround && !forceDisableControls)
         {
-            direction = 1;
-            Jump();
+            if (Input.GetKeyDown(Constants.CONTROL_RIGHT)) Jump(1);
+            if (Input.GetKeyDown(Constants.CONTROL_LEFT)) Jump(-1);
         }
-
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && isGround && !forceDisableControls)
-        {
-            direction = -1;
-            Jump();
-        }
-
-        // if (GetComponent<Rigidbody2D>() != null)
-        //     parallax.Speed = direction * rb.velocity.magnitude / 10;
-
     }
 
     public void ChangeRotateToDefault()
@@ -99,32 +82,34 @@ public class PlayerControl : MonoBehaviour
         transform.rotation = Quaternion.identity;
     }
 
-    void Jump()
+    void Jump(int newDirection)
     {
+        direction = newDirection;
+
         if (GetComponent<Rigidbody2D>() != null)
         {
             face.Jump();
             if (!smallCube)
             {
-                sndController.jump.pitch = Random.Range(0.6f, 1.2f);
+                sndController.jump.pitch = Random.Range(Constants.PITCH_JUMP_LEVEL / 2, Constants.PITCH_JUMP_LEVEL);
                 sndController.jump.Play();
             }
             else
             {
-                sndController.jumpSmall.pitch = Random.Range(0.6f, 1.2f);
+                sndController.jumpSmall.pitch = Random.Range(Constants.PITCH_JUMP_LEVEL / 2, Constants.PITCH_JUMP_LEVEL);
                 sndController.jumpSmall.Play();
             }
 
             if (smallCube)
             {
-                boostX = 0.5f;
-                boostY = 1f;
+                boostX = Constants.SMALL_BOOST_X;
+                boostY = Constants.SMALL_BOOST_Y;
             }
-            //Обычные прыжки
+
             if (!smallCube && !DoubleJump)
             {
-                boostX = 1.1f;
-                boostY = 1.1f;
+                boostX = Constants.NORMAL_BOOST_X;
+                boostY = Constants.NORMAL_BOOST_Y;
             }
 
             speedX = Mathf.Abs(jumpVectorPoint.localPosition.x) * force * direction;
@@ -139,9 +124,12 @@ public class PlayerControl : MonoBehaviour
     {
         if (collision.gameObject.tag == "Blocks")
         {
-            //DoubleJumpMoment = false; 
+            current_angle = transform.localRotation.eulerAngles.z;
             isGround = true;
-            if (transform.localRotation.eulerAngles.z > 160 && transform.localRotation.eulerAngles.z < 200)
+
+            bool check_angle = current_angle.IsWithin(Constants.MIN_SWAP_Z, Constants.MAX_SWAP_Z);
+
+            if (check_angle)
             {
                 sndController.put2.Play();
                 face.Bad();

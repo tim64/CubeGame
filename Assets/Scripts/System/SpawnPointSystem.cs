@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
-using UnityStandardAssets._2D;
 
 public class SpawnPointSystem : MonoBehaviour
 {
@@ -11,6 +10,7 @@ public class SpawnPointSystem : MonoBehaviour
     public PortalEffect portal;
     public float delaySpawn;
     public CinemachineVirtualCamera virtualCam;
+    public GameObject player;
 
     public enum AnimationType
     {
@@ -74,6 +74,10 @@ public class SpawnPointSystem : MonoBehaviour
 
             Vector2 position = transform.position;
             character = Instantiate(characterPrefab, position, Quaternion.identity);
+            player = character;
+            EventManager.TriggerEvent("PlayerCreated");
+            
+
             //уменьшаем персонажа перед анимацией скейла
             if (appearType == AnimationType.SCALE) character.transform.localScale = Vector2.zero;
             virtualCam.Follow = character.transform;
