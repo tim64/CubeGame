@@ -1,10 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    void Start()
+    {
+        LevelController.instance.LoadFirstLevel();
+    }
+
     public void Restart()
     {
         Time.timeScale = 1;

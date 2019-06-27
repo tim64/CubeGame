@@ -16,6 +16,8 @@ public class CaterpillarMove : MonoBehaviour
     {
         LeanTween.delayedCall(speed, delegate ()
         {
+            if (this == null) return;
+            
             walkDistance += step;
 
             if (Mathf.Approximately(walkDistance, patrolDistance))

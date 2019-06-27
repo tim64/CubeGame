@@ -10,12 +10,12 @@ public class ParallaxController : MonoBehaviour
 
     void Start()
     {
+        parallax.gameObject.SetActive(true);
         EventManager.StartListening("PlayerCreated", ActivateParallax);
     }
 
     void ActivateParallax()
     {
-        parallax.gameObject.SetActive(true);
         player = spawnSystem.player.GetComponent<PlayerControl>();
         playerRb  = player.GetComponent<Rigidbody2D>();
     }

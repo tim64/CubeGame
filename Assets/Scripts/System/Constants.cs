@@ -15,7 +15,7 @@ public class Constants : MonoBehaviour
     //Player reaction
     public const int MIN_SWAP_Z = 160;
     public const int MAX_SWAP_Z = 200;
-    
+
     //Small cube
     public const float SMALL_BOOST_X = 0.5f;
     public const float SMALL_BOOST_Y = 1f;
@@ -28,8 +28,5 @@ public class Constants : MonoBehaviour
     public const KeyCode CONTROL_RIGHT = KeyCode.RightArrow;
 
     #endregion
-
-
-
 
 }
