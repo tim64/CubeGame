@@ -5,35 +5,6 @@ using UnityEngine.EventSystems;
 public class PlayerControl : MonoBehaviour
 {
 
-    //Физические параметры
-    Bounds playerBounds;
-    public int force = 100;
-    int forceX;
-    int forceY;
-    int direction = 1;
-    float boostX = 1.1f;
-    float boostY = 1.1f;
-
-    float speedX;
-    float speedY;
-
-    Rigidbody2D rb;
-    PlayerSoundController sndController;
-    public bool forceDisableControls = false;
-    public bool isGround = false;
-
-    FaceControl face;
-    public KeyCode jumpButton;
-    public Transform jumpVectorPoint;
-    public TrailRenderer doubleJumpFire;
-    private bool doubleJump;
-    public bool smallCube;
-
-    FreeParallax parallax;
-
-    float speed;
-    bool doubleJumpMoment;
-
     public float Speed
     {
         get
@@ -58,6 +29,35 @@ public class PlayerControl : MonoBehaviour
             }
         }
     }
+
+    public KeyCode jumpButton;
+    public Transform jumpVectorPoint;
+    public TrailRenderer doubleJumpFire;
+
+    public int force = 100;
+    public bool forceDisableControls = false;
+    public bool isGround = false;
+    public bool smallCube;
+
+    private bool doubleJumpMoment;
+    private bool doubleJump;
+    private int forceX;
+    private int forceY;
+    private int direction = 1;
+    private float boostX = 1.1f;
+    private float boostY = 1.1f;
+    private float speedX;
+    private float speedY;
+    private float speed;
+
+    private Bounds playerBounds;
+    private Rigidbody2D rb;
+    private PlayerSoundController sndController;
+    private FaceControl face;
+    private FreeParallax parallax;
+    
+
+
 
     private void Awake()
     {
